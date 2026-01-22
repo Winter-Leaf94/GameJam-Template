@@ -1,6 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
-var spdx, spdy;
+gravity = 0;
+move_speed = 4;
 
-spdx = 0;
-spdy = 0
+move_x = 0;
+move_y = 0;
+
+my_tilemap = layer_tilemap_get_id("Tiles_1");
