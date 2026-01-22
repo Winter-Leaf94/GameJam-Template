@@ -6,4 +6,4 @@ move_speed = 4;
 move_x = 0;
 move_y = 0;
 
-my_tilemap = layer_tilemap_get_id("Tiles_1");
+obj_Wall = Wall;
