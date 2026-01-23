@@ -38,8 +38,8 @@
   "resourceVersion":"2.0",
   "solid":true,
   "spriteId":{
-    "name":"Sprite6",
-    "path":"sprites/Sprite6/Sprite6.yy",
+    "name":"Sprite14",
+    "path":"sprites/Sprite14/Sprite14.yy",
   },
   "spriteMaskId":null,
   "visible":true,
