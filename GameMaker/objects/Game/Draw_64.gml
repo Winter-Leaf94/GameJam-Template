@@ -58,14 +58,14 @@ if (global.show_debug) {
 	// Instance counts
 	draw_text(_x, _y, "Enemies: " + string(instance_number(Enemy)));
 	_y += _line_height;
-	draw_text(_x, _y, "Walls: " + string(instance_number(Wall)));
+	draw_text(_x, _y, "obj_walls: " + string(instance_number(obj_wall)));
 	_y += _line_height;
-	draw_text(_x, _y, "Players: " + string(instance_number(Player)));
+	draw_text(_x, _y, "obj_players: " + string(instance_number(obj_player)));
 	_y += _line_height;
 
-	// Player position if exists
-	if (instance_exists(Player)) {
-		draw_text(_x, _y, "Player pos: (" + string(round(Player.x)) + ", " + string(round(Player.y)) + ")");
+	// obj_player position if exists
+	if (instance_exists(obj_player)) {
+		draw_text(_x, _y, "obj_player pos: (" + string(round(obj_player.x)) + ", " + string(round(obj_player.y)) + ")");
 		_y += _line_height;
 	}
 
@@ -73,8 +73,8 @@ if (global.show_debug) {
 	if (instance_exists(Enemy)) {
 		var _enemy = instance_find(Enemy, 0);
 		if (variable_instance_exists(_enemy, "alert")) {
-			if (instance_exists(Player)) {
-				var _dist = point_distance(_enemy.x, _enemy.y, Player.x, Player.y);
+			if (instance_exists(obj_player)) {
+				var _dist = point_distance(_enemy.x, _enemy.y, obj_player.x, obj_player.y);
 				draw_text(_x, _y, "Enemy alert: " + string(_enemy.alert) + " | Distance: " + string(round(_dist)));
 			} else {
 				draw_text(_x, _y, "Enemy alert: " + string(_enemy.alert) + " | No player");

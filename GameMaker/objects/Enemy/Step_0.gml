@@ -1,10 +1,10 @@
 // movement for enemy AI
 // Check if player is within alert distance
-if (instance_exists(Player)) {
-	var _dis = distance_to_object(Player);
+if (instance_exists(obj_player)) {
+	var _dis = distance_to_object(obj_player);
 	if (_dis <= alert_dis) {
 		if (!alert) {
-			show_debug_message("Enemy alerted! Player within range: " + string(_dis));
+			show_debug_message("Enemy alerted! obj_player within range: " + string(_dis));
 			audio_play_sound(ISeeYou, 2, false);
 		}
 		alert = true;
@@ -18,7 +18,7 @@ if (instance_exists(Player)) {
 // Debug once per second
 if (current_time mod 1000 < 16) {
 	var grid_status = variable_global_exists("mp_grid") ? string(global.mp_grid) : "not initialized";
-	show_debug_message("Alert: " + string(alert) + " | Distance: " + string(distance_to_object(Player)) + " | Timer: " + string(calc_path_timer) + " | Grid: " + grid_status + " | path_index: " + string(path_index) + " | speed: " + string(speed) + " | path_speed: " + string(path_speed));
+	show_debug_message("Alert: " + string(alert) + " | Distance: " + string(distance_to_object(obj_player)) + " | Timer: " + string(calc_path_timer) + " | Grid: " + grid_status + " | path_index: " + string(path_index) + " | speed: " + string(speed) + " | path_speed: " + string(path_speed));
 }
 
 // Only path if player is within alert distance and grid exists
@@ -37,15 +37,15 @@ if (alert) {
 			// Use current position for pathfinding (no snapping mid-movement)
 			var start_x = x;
 			var start_y = y;
-			var player_grid_x = round(Player.x / grid_size) * grid_size + grid_size / 2;
-			var player_grid_y = round(Player.y / grid_size) * grid_size + grid_size / 2;
+			var player_grid_x = round(obj_player.x / grid_size) * grid_size + grid_size / 2;
+			var player_grid_y = round(obj_player.y / grid_size) * grid_size + grid_size / 2;
 
 			// Make Path to the player - disable diagonals to avoid corner issues
 			show_debug_message("Calculating path from (" + string(start_x) + "," + string(start_y) + ") to player at (" + string(player_grid_x) + "," + string(player_grid_y) + ")");
-			var found_Player = mp_grid_path(global.mp_grid, path, start_x, start_y, player_grid_x, player_grid_y, false);
+			var found_obj_player = mp_grid_path(global.mp_grid, path, start_x, start_y, player_grid_x, player_grid_y, false);
 
 			// start path if player can be reached
-			if (found_Player) {
+			if (found_obj_player) {
 				path_end();
 				path_start(path, move_spd, path_action_stop, false);
 				show_debug_message("Path started! Speed: " + string(move_spd) + " | Path length: " + string(path_get_length(path)) + " | Points: " + string(path_get_number(path)));
@@ -66,8 +66,8 @@ if (alert) {
 	}
 }
 
-// Wall collision handling - prevent getting stuck
-if(place_meeting(x, y, Wall)){
+// obj_wall collision handling - prevent getting stuck
+if(place_meeting(x, y, obj_wall)){
 	// Stop path immediately
 	path_end();
 
@@ -75,28 +75,28 @@ if(place_meeting(x, y, Wall)){
 	var nudged = false;
 	for(var i = 1; i <= 32; ++i) {
 		// Try cardinal directions first (most reliable)
-		if(!place_meeting(x + i, y, Wall)){
+		if(!place_meeting(x + i, y, obj_wall)){
 			x += i;
 			show_debug_message("Nudged right " + string(i));
 			calc_path_timer = 0; // Immediate recalc
 			nudged = true;
 			break;
 		}
-		if(!place_meeting(x - i, y, Wall)){
+		if(!place_meeting(x - i, y, obj_wall)){
 			x -= i;
 			show_debug_message("Nudged left " + string(i));
 			calc_path_timer = 0;
 			nudged = true;
 			break;
 		}
-		if(!place_meeting(x, y - i, Wall)){
+		if(!place_meeting(x, y - i, obj_wall)){
 			y -= i;
 			show_debug_message("Nudged up " + string(i));
 			calc_path_timer = 0;
 			nudged = true;
 			break;
 		}
-		if(!place_meeting(x, y + i, Wall)){
+		if(!place_meeting(x, y + i, obj_wall)){
 			y += i;
 			show_debug_message("Nudged down " + string(i));
 			calc_path_timer = 0;

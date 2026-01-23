@@ -18,7 +18,7 @@ gpu_set_blendmode(bm_subtract);
 
 var scale = 2;
 
-with (Player)
+with (obj_player)
 {
 	draw_sprite_ext(spr_lightpunchout, 0, self.x, self.y, scale, scale, 0, c_white, 1);
 }
