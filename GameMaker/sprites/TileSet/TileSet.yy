@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v2",
+  "$GMSprite":"",
   "%Name":"TileSet",
   "bboxMode":0,
   "bbox_bottom":463,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"c4cb37a2-2126-4032-8279-1a6b31df93ce","name":"c4cb37a2-2126-4032-8279-1a6b31df93ce","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"c4cb37a2-2126-4032-8279-1a6b31df93ce","name":"c4cb37a2-2126-4032-8279-1a6b31df93ce","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -51,7 +51,7 @@
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"v1",
+    "$GMSequence":"",
     "%Name":"TileSet",
     "autoRecord":true,
     "backdropHeight":768,
