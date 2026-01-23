@@ -11,5 +11,5 @@ if (place_meeting(x, y, obj_wall)) {
 
 if (place_meeting(x,y, obj_enemy))
 {
-	position_change(160, 704, obj_player, 0);
+	room_restart();
 }
