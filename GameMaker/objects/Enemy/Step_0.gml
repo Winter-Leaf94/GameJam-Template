@@ -39,7 +39,7 @@ if (alert) {
 			var player_grid_x = round(Player.x / grid_size) * grid_size + grid_size / 2;
 			var player_grid_y = round(Player.y / grid_size) * grid_size + grid_size / 2;
 
-			// Make Path to the player
+			// Make Path to the player - disable diagonals to avoid corner issues
 			show_debug_message("Calculating path from (" + string(start_x) + "," + string(start_y) + ") to player at (" + string(player_grid_x) + "," + string(player_grid_y) + ")");
 			var found_Player = mp_grid_path(global.mp_grid, path, start_x, start_y, player_grid_x, player_grid_y, false);
 
@@ -65,71 +65,57 @@ if (alert) {
 	}
 }
 
-// Wall unsticking - runs EVERY frame to prevent getting stuck
-// This is critical for pathfinding to work properly
+// Wall collision handling - prevent getting stuck
 if(place_meeting(x, y, Wall)){
-	for(var i = 1; i < 100; ++i) {
+	// Stop path immediately
+	path_end();
+
+	// Nudge away from wall - try small distances first
+	var nudged = false;
+	for(var i = 1; i <= 32; ++i) {
+		// Try cardinal directions first (most reliable)
 		if(!place_meeting(x + i, y, Wall)){
 			x += i;
-			show_debug_message("Unstuck: moved right " + string(i) + " pixels");
-			path_end();
-			calc_path_timer = 0;
+			show_debug_message("Nudged right " + string(i));
+			calc_path_timer = 0; // Immediate recalc
+			nudged = true;
 			break;
 		}
 		if(!place_meeting(x - i, y, Wall)){
 			x -= i;
-			show_debug_message("Unstuck: moved left " + string(i) + " pixels");
-			path_end();
+			show_debug_message("Nudged left " + string(i));
 			calc_path_timer = 0;
+			nudged = true;
 			break;
 		}
 		if(!place_meeting(x, y - i, Wall)){
 			y -= i;
-			show_debug_message("Unstuck: moved up " + string(i) + " pixels");
-			path_end();
+			show_debug_message("Nudged up " + string(i));
 			calc_path_timer = 0;
+			nudged = true;
 			break;
 		}
 		if(!place_meeting(x, y + i, Wall)){
 			y += i;
-			show_debug_message("Unstuck: moved down " + string(i) + " pixels");
-			path_end();
+			show_debug_message("Nudged down " + string(i));
 			calc_path_timer = 0;
-			break;
-		}
-		if(!place_meeting(x + i, y - i, Wall)){
-			x += i;
-			y -= i;
-			show_debug_message("Unstuck: moved diag " + string(i) + " pixels");
-			path_end();
-			calc_path_timer = 0;
-			break;
-		}
-		if(!place_meeting(x - i, y - i, Wall)){
-			x -= i;
-			y -= i;
-			show_debug_message("Unstuck: moved diag " + string(i) + " pixels");
-			path_end();
-			calc_path_timer = 0;
-			break;
-		}
-		if(!place_meeting(x + i, y + i, Wall)){
-			x += i;
-			y += i;
-			show_debug_message("Unstuck: moved diag " + string(i) + " pixels");
-			path_end();
-			calc_path_timer = 0;
-			break;
-		}
-		if(!place_meeting(x - i, y + i, Wall)){
-			x -= i;
-			y += i;
-			show_debug_message("Unstuck: moved diag " + string(i) + " pixels");
-			path_end();
-			calc_path_timer = 0;
+			nudged = true;
 			break;
 		}
 	}
+
+	// If still stuck, try larger movements
+	if (!nudged) {
+		x = round(x / 32) * 32 + 16;
+		y = round(y / 32) * 32 + 16;
+		show_debug_message("Force snapped to grid center");
+		calc_path_timer = 0;
+	}
+}
+
+// If no path and player is in range, force recalc
+if (alert && path_index == -1 && calc_path_timer > 2) {
+	calc_path_timer = 2;
 }
 
 
