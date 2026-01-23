@@ -8,3 +8,8 @@ if (place_meeting(x, y, obj_wall)) {
     x -= h * move_speed;
     y -= v * move_speed;
 }
+
+if (place_meeting(x,y, obj_enemy))
+{
+	position_change(160, 704, obj_player, 0);
+}
