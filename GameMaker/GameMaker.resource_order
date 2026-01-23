@@ -7,7 +7,6 @@
     {"name":"PlayButton","order":7,"path":"objects/PlayButton/PlayButton.yy",},
     {"name":"TitleUI","order":9,"path":"objects/TitleUI/TitleUI.yy",},
     {"name":"Torch","order":2,"path":"objects/Torch/Torch.yy",},
-    {"name":"Wall","order":1,"path":"objects/Wall/Wall.yy",},
     {"name":"IdleMusic","order":1,"path":"sounds/IdleMusic/IdleMusic.yy",},
     {"name":"ISeeYou","order":3,"path":"sounds/ISeeYou/ISeeYou.yy",},
     {"name":"MainMenuBackground","order":3,"path":"sprites/MainMenuBackground/MainMenuBackground.yy",},
