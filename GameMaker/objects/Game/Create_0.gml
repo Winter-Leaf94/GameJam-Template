@@ -12,6 +12,16 @@ var _h = ceil(room_height / TS);
 // Create motion planning grid
 global.mp_grid = mp_grid_create(0, 0, _w, _h, TS, TS);
 
+if(room == MainMenu)
+{
+	audio_play_sound(MainMenuTheme, 1, true);
+}
+else if (room == Level1)
+{
+	audio_stop_sound(MainMenuTheme);
+	audio_play_sound(IdleMusic, 1, true);	
+}
+
 // add solid instances
 mp_grid_add_instances(global.mp_grid, Wall, true);
 

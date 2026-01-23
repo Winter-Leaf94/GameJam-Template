@@ -5,6 +5,7 @@ if (instance_exists(Player)) {
 	if (_dis <= alert_dis) {
 		if (!alert) {
 			show_debug_message("Enemy alerted! Player within range: " + string(_dis));
+			audio_play_sound(ISeeYou, 2, false);
 		}
 		alert = true;
 	} else {
