@@ -4,8 +4,10 @@ if (instance_exists(obj_player)) {
 	var _dis = distance_to_object(obj_player);
 	if (_dis <= alert_dis) {
 		if (!alert) {
-			show_debug_message("Enemy alerted! obj_player within range: " + string(_dis));
+			show_debug_message("Enemy alerted! Player within range: " + string(_dis));
 			audio_play_sound(ISeeYou, 2, false);
+			isSeen = true;
+			alarm[0] = 100;
 		}
 		alert = true;
 	} else {
@@ -42,10 +44,10 @@ if (alert) {
 
 			// Make Path to the player - disable diagonals to avoid corner issues
 			show_debug_message("Calculating path from (" + string(start_x) + "," + string(start_y) + ") to player at (" + string(player_grid_x) + "," + string(player_grid_y) + ")");
-			var found_obj_player = mp_grid_path(global.mp_grid, path, start_x, start_y, player_grid_x, player_grid_y, false);
+			var found_Player = mp_grid_path(global.mp_grid, path, start_x, start_y, player_grid_x, player_grid_y, false);
 
 			// start path if player can be reached
-			if (found_obj_player) {
+			if (found_Player) {
 				path_end();
 				path_start(path, move_spd, path_action_stop, false);
 				show_debug_message("Path started! Speed: " + string(move_spd) + " | Path length: " + string(path_get_length(path)) + " | Points: " + string(path_get_number(path)));
@@ -66,7 +68,7 @@ if (alert) {
 	}
 }
 
-// obj_wall collision handling - prevent getting stuck
+// Wall collision handling - prevent getting stuck
 if(place_meeting(x, y, obj_wall)){
 	// Stop path immediately
 	path_end();

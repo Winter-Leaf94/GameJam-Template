@@ -1,4 +1,5 @@
 alert = false;
+isSeen = false;
 // distance enemy will engage with player
 alert_dis = 200;
 // Create Path
