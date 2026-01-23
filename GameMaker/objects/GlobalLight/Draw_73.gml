@@ -11,7 +11,7 @@ if(!surface_exists(self.light_surface))
 }
 
 surface_set_target(self.light_surface);
-draw_clear_alpha(c_black, 0.5);
+draw_clear_alpha(c_black, 0.3);
 camera_apply(camera);
 
 gpu_set_blendmode(bm_subtract);
@@ -22,7 +22,7 @@ var scale = 2;
 // Player light punchout
 if (instance_exists(obj_player)) {
 	with (obj_player) {
-		draw_sprite_ext(spr_lightpunchout, 0, x, y, scale, scale, 0, c_white, 1);
+		draw_sprite_ext(spr_lightpunchout, 0, x - (32 * scale), y - (32 * scale), scale, scale, 0, c_white, 1);
 	}
 }
 
